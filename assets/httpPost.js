@@ -39,12 +39,6 @@ cc.Class({
 
     start () {
         console.log('start...')
-        // this.sendXHRAB()
-        // this.sendXHRABC()
-        // for(var i = 0; i <1000; i++)
-        // {
-        //     this.sendXHRABC()
-        // }
     },
 
     // update (dt) {},
@@ -92,6 +86,6 @@ cc.Class({
         console.log("sendBtn click");
         var postUri = this.postUri.string;
         console.log("postUri = " + postUri);
-        sendXHRABC(postUri);
+        this.sendXHRABC(postUri);
     }
 });
