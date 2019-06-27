@@ -27,6 +27,10 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
+        postUri: {
+            default: null,
+            type: cc.EditBox
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -35,17 +39,18 @@ cc.Class({
 
     start () {
         console.log('start...')
-        this.sendXHRAB()
-        this.sendXHRABC()
-        for(var i = 0; i <1000; i++)
-        {
-            this.sendXHRABC()
-        }
+        // this.sendXHRAB()
+        // this.sendXHRABC()
+        // for(var i = 0; i <1000; i++)
+        // {
+        //     this.sendXHRABC()
+        // }
     },
 
     // update (dt) {},
 
-    sendXHRAB () {
+    sendXHRAB (uri) {
+        console.log("sendXHRAB... uri = " + uri);
         var xhr = cc.loader.getXMLHttpRequest();
         var cocosDataJsonObj = {
             "test": "cocos creator",
@@ -55,7 +60,7 @@ cc.Class({
                 "key2": "cocos creator"
             }
         }
-        xhr.open("POST", "http://35.243.86.255:3000/info");
+        xhr.open("POST", uri);
         //set Content-type "text/plain" to post ArrayBuffer or ArrayBufferView
         xhr.setRequestHeader("Content-Type","application/json");
         // Uint8Array is an ArrayBufferView
@@ -67,10 +72,11 @@ cc.Class({
         
     },
 
-    sendXHRABC () {
+    sendXHRABC (uri) {
+        console.log("sendXHRABC... uri = " + uri);
         var xhr = cc.loader.getXMLHttpRequest();
         var cocosDataJsonObj = {"BetInfo":{"event":true,"LineNum":"8","LineBet":"1","BetBalanceRate":"1","BetCreditRate":"1","BetCredit":8},"PayTotal":10,"BetTotal":8,"Credit":499992,"WagersID":"310616168187","hasAllCards":false,"Bell3Times":5,"Cherry3Times":1,"Star97_A7":{"1:1":4512.98},"Star97_AB":{"1:1":4683.98},"Star97_AE":{"1:1":1574.86},"isAllCardsJackpot":false,"hasError":false,"Cards":["4","6","5","7","3","2","7","4","4"],"hasScatter":false,"hasFreeGame":false,"hasLine":true,"Lines":[{"LineID":4,"GridNum":3,"Grids":["1","5","9"],"Payoff":10,"Element":["4","3","4"],"ElementID":"4","Grid":["1","5","9"]}],"LinePayoff":10,"isHitJackpot":false}
-        xhr.open("POST", "http://35.243.86.255:3000/info");
+        xhr.open("POST", uri);
         //set Content-type "text/plain" to post ArrayBuffer or ArrayBufferView
         xhr.setRequestHeader("Content-Type","application/json");
         // Uint8Array is an ArrayBufferView
@@ -81,4 +87,11 @@ cc.Class({
         xhr.send(cocosDataJsonString);
         
     },
+
+    sendBtn () {
+        console.log("sendBtn click");
+        var postUri = this.postUri.string;
+        console.log("postUri = " + postUri);
+        sendXHRABC(postUri);
+    }
 });
