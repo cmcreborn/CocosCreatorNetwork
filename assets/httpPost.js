@@ -37,13 +37,14 @@ cc.Class({
 
     // onLoad () {},
 
-    start () {
+    start() {
         console.log('start...')
+        this.postUri.string = "http://localhost:3000/info";
     },
 
     // update (dt) {},
 
-    sendXHRAB (uri) {
+    sendXHRAB(uri) {
         console.log("sendXHRAB... uri = " + uri);
         var xhr = cc.loader.getXMLHttpRequest();
         var cocosDataJsonObj = {
@@ -56,36 +57,52 @@ cc.Class({
         }
         xhr.open("POST", uri);
         //set Content-type "text/plain" to post ArrayBuffer or ArrayBufferView
-        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
         // Uint8Array is an ArrayBufferView
         // xhr.send(new Uint8Array([1,2,3,4,5]));
         console.log(cocosDataJsonObj);
-        var cocosDataJsonString=JSON.stringify(cocosDataJsonObj)
+        var cocosDataJsonString = JSON.stringify(cocosDataJsonObj)
         console.log(cocosDataJsonString)
         xhr.send(cocosDataJsonString);
-        
+
     },
 
-    sendXHRABC (uri) {
-        console.log("sendXHRABC... uri = " + uri);
+    sendXHRJ(uri) {
+        console.log("sendXHRJ... uri = " + uri);
         var xhr = cc.loader.getXMLHttpRequest();
-        var cocosDataJsonObj = {"BetInfo":{"event":true,"LineNum":"8","LineBet":"1","BetBalanceRate":"1","BetCreditRate":"1","BetCredit":8},"PayTotal":10,"BetTotal":8,"Credit":499992,"WagersID":"310616168187","hasAllCards":false,"Bell3Times":5,"Cherry3Times":1,"Star97_A7":{"1:1":4512.98},"Star97_AB":{"1:1":4683.98},"Star97_AE":{"1:1":1574.86},"isAllCardsJackpot":false,"hasError":false,"Cards":["4","6","5","7","3","2","7","4","4"],"hasScatter":false,"hasFreeGame":false,"hasLine":true,"Lines":[{"LineID":4,"GridNum":3,"Grids":["1","5","9"],"Payoff":10,"Element":["4","3","4"],"ElementID":"4","Grid":["1","5","9"]}],"LinePayoff":10,"isHitJackpot":false}
+        var cocosDataJsonObj = { "BetInfo": { "event": true, "LineNum": "8", "LineBet": "1", "BetBalanceRate": "1", "BetCreditRate": "1", "BetCredit": 8 }, "PayTotal": 10, "BetTotal": 8, "Credit": 499992, "WagersID": "310616168187", "hasAllCards": false, "Bell3Times": 5, "Cherry3Times": 1, "Star97_A7": { "1:1": 4512.98 }, "Star97_AB": { "1:1": 4683.98 }, "Star97_AE": { "1:1": 1574.86 }, "isAllCardsJackpot": false, "hasError": false, "Cards": ["4", "6", "5", "7", "3", "2", "7", "4", "4"], "hasScatter": false, "hasFreeGame": false, "hasLine": true, "Lines": [{ "LineID": 4, "GridNum": 3, "Grids": ["1", "5", "9"], "Payoff": 10, "Element": ["4", "3", "4"], "ElementID": "4", "Grid": ["1", "5", "9"] }], "LinePayoff": 10, "isHitJackpot": false }
         xhr.open("POST", uri);
         //set Content-type "text/plain" to post ArrayBuffer or ArrayBufferView
-        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
         // Uint8Array is an ArrayBufferView
         // xhr.send(new Uint8Array([1,2,3,4,5]));
         console.log(cocosDataJsonObj);
-        var cocosDataJsonString=JSON.stringify(cocosDataJsonObj)
+        var cocosDataJsonString = JSON.stringify(cocosDataJsonObj)
         console.log(cocosDataJsonString)
         xhr.send(cocosDataJsonString);
-        
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log(xhr.responseText);
+            } else {
+                console.log(xhr.statusText);
+            }
+        };
     },
 
-    sendBtn () {
+    sendBtn() {
         console.log("sendBtn click");
         var postUri = this.postUri.string;
         console.log("postUri = " + postUri);
-        this.sendXHRABC(postUri);
+        this.sendXHRJ(postUri);
+    },
+
+    sendBtnTimes () {
+        console.log("sendBtnTimes...");
+        var times = 1000;
+        var that = this;
+        for(var i = 0; i <= times; i++){
+            that.sendXHRJ(that.postUri.string);
+        }
     }
 });
