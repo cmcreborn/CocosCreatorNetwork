@@ -30,6 +30,14 @@ cc.Class({
         postUri: {
             default: null,
             type: cc.EditBox
+        },
+        logScrollView: {
+            default: null,
+            type: cc.ScrollView
+        },
+        logScrollViewMsg: {
+            default: null,
+            type: cc.Label
         }
     },
 
@@ -69,6 +77,8 @@ cc.Class({
 
     sendXHRJ(uri) {
         console.log("sendXHRJ... uri = " + uri);
+        var that = this;
+        
         var xhr = cc.loader.getXMLHttpRequest();
         var cocosDataJsonObj = { "BetInfo": { "event": true, "LineNum": "8", "LineBet": "1", "BetBalanceRate": "1", "BetCreditRate": "1", "BetCredit": 8 }, "PayTotal": 10, "BetTotal": 8, "Credit": 499992, "WagersID": "310616168187", "hasAllCards": false, "Bell3Times": 5, "Cherry3Times": 1, "Star97_A7": { "1:1": 4512.98 }, "Star97_AB": { "1:1": 4683.98 }, "Star97_AE": { "1:1": 1574.86 }, "isAllCardsJackpot": false, "hasError": false, "Cards": ["4", "6", "5", "7", "3", "2", "7", "4", "4"], "hasScatter": false, "hasFreeGame": false, "hasLine": true, "Lines": [{ "LineID": 4, "GridNum": 3, "Grids": ["1", "5", "9"], "Payoff": 10, "Element": ["4", "3", "4"], "ElementID": "4", "Grid": ["1", "5", "9"] }], "LinePayoff": 10, "isHitJackpot": false }
         xhr.open("POST", uri);
@@ -84,8 +94,10 @@ cc.Class({
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 console.log(xhr.responseText);
+                that.logScrollViewMsg.string += xhr.responseText;
             } else {
                 console.log(xhr.statusText);
+                that.logScrollViewMsg.string += xhr.responseText;
             }
         };
     },
