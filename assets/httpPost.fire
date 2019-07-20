@@ -955,7 +955,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New Button",
+    "_name": "SendPostNT",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -1320,7 +1320,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New ScrollView",
+    "_name": "ServerResponse",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -1761,7 +1761,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 400,
-      "height": 60
+      "height": 40
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1803,8 +1803,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "ScrollView content ......\n\n",
-    "_N$string": "ScrollView content ......\n\n",
+    "_string": "server response ......\n",
+    "_N$string": "server response ......\n",
     "_fontSize": 16,
     "_lineHeight": 20,
     "_enableWrapText": true,
